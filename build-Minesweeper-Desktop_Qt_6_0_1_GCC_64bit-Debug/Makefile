@@ -53,9 +53,11 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../Minesweeper/main.cpp \
-		../Minesweeper/mainwindow.cpp moc_mainwindow.cpp
+		../Minesweeper/mainwindow.cpp qrc_Resources.cpp \
+		moc_mainwindow.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
+		qrc_Resources.o \
 		moc_mainwindow.o
 DIST          = /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/common/unix.conf \
@@ -144,6 +146,7 @@ DIST          = /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/qt_config.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/spec_post.prf \
+		../Minesweeper/.qmake.stash \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/toolchain.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -264,6 +267,7 @@ Makefile: ../Minesweeper/Minesweeper.pro /home/madrienn17/Qt/6.0.1/gcc_64/mkspec
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/qt_config.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/toolchain.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -285,6 +289,7 @@ Makefile: ../Minesweeper/Minesweeper.pro /home/madrienn17/Qt/6.0.1/gcc_64/mkspec
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/yacc.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/lex.prf \
 		../Minesweeper/Minesweeper.pro \
+		../Minesweeper/Resources.qrc \
 		/home/madrienn17/Qt/6.0.1/gcc_64/lib/libQt6Widgets.prl \
 		/home/madrienn17/Qt/6.0.1/gcc_64/lib/libQt6Gui.prl \
 		/home/madrienn17/Qt/6.0.1/gcc_64/lib/libQt6Core.prl
@@ -376,6 +381,7 @@ Makefile: ../Minesweeper/Minesweeper.pro /home/madrienn17/Qt/6.0.1/gcc_64/mkspec
 /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/qt_config.prf:
 /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/linux-g++/qmake.conf:
 /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/exclusive_builds.prf:
 /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/toolchain.prf:
 /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/default_pre.prf:
@@ -397,6 +403,7 @@ Makefile: ../Minesweeper/Minesweeper.pro /home/madrienn17/Qt/6.0.1/gcc_64/mkspec
 /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/yacc.prf:
 /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/lex.prf:
 ../Minesweeper/Minesweeper.pro:
+../Minesweeper/Resources.qrc:
 /home/madrienn17/Qt/6.0.1/gcc_64/lib/libQt6Widgets.prl:
 /home/madrienn17/Qt/6.0.1/gcc_64/lib/libQt6Gui.prl:
 /home/madrienn17/Qt/6.0.1/gcc_64/lib/libQt6Core.prl:
@@ -414,6 +421,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ../Minesweeper/Resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Minesweeper/mainwindow.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../Minesweeper/main.cpp ../Minesweeper/mainwindow.cpp $(DISTDIR)/
@@ -441,8 +449,24 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_Resources.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_Resources.cpp
+qrc_Resources.cpp: ../Minesweeper/Resources.qrc \
+		/home/madrienn17/Qt/6.0.1/gcc_64/bin/rcc \
+		../Minesweeper/imgs/eight.png \
+		../Minesweeper/imgs/two.png \
+		../Minesweeper/imgs/four.png \
+		../Minesweeper/imgs/flag.png \
+		../Minesweeper/imgs/mine_red.jpg \
+		../Minesweeper/imgs/six.png \
+		../Minesweeper/imgs/one.png \
+		../Minesweeper/imgs/mine.jpg \
+		../Minesweeper/imgs/seven.png \
+		../Minesweeper/imgs/five.png \
+		../Minesweeper/imgs/three.png
+	/home/madrienn17/Qt/6.0.1/gcc_64/bin/rcc -name Resources ../Minesweeper/Resources.qrc -o qrc_Resources.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
@@ -604,7 +628,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -879,8 +903,26 @@ mainwindow.o: ../Minesweeper/mainwindow.cpp ../Minesweeper/mainwindow.h \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/QTransform \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qicon.h \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QVariant \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QApplication \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qapplication.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qeventloop.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qguiapplication.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qinputmethod.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qlocale.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QMenuBar \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qmenubar.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qmenu.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qaction.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QStatusBar \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qstatusbar.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Minesweeper/mainwindow.cpp
+
+qrc_Resources.o: qrc_Resources.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_Resources.o qrc_Resources.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

@@ -1,11 +1,22 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+MainWindow::MainWindow(int xDim, int yDim)
+   : ui(new Ui::MainWindow),
+     xDim(xDim), yDim(yDim)
 {
     ui->setupUi(this);
+    start();
+    connect();
+}
+
+MainWindow::MainWindow(int xDim, int yDim, int nrBomb)
+   : ui(new Ui::MainWindow),
+     xDim(xDim), yDim(yDim), nrBomb(nrBomb)
+{
+    ui->setupUi(this);
+    start();
+    connect();
 }
 
 MainWindow::~MainWindow()
