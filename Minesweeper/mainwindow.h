@@ -64,14 +64,17 @@ private:
     void restart();
     void connectAll();
     void setIcons(int, int);
+
 private slots:
     void actionBtn(int,int);
     void refreshTime();
     void onRightClick(int, int);
     void winmsg();
     void losemsg();
+
 signals :
     void win();
     void lose();
 };
+
 #endif // MAINWINDOW_H

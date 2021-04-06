@@ -37,38 +37,38 @@ void MainWindow::connectAll() {
 
 void MainWindow::setIcons(int x, int y) {
     switch (fields[x][y].value) {
-    case 1: {
-        newBtns[x][y]->setIcon(*myicons->getImgOne());
-        break;
-    }
-    case 2: {
-        newBtns[x][y]->setIcon(*myicons->getImgTwo());
-        break;
-    }
-    case 3: {
-        newBtns[x][y]->setIcon(*myicons->getImgThree());
-        break;
-    }
-    case 4: {
-        newBtns[x][y]->setIcon(*myicons->getImgFour());
-        break;
-    }
-    case 5: {
-        newBtns[x][y]->setIcon(*myicons->getImgFive());
-        break;
-    }
-    case 6: {
-        newBtns[x][y]->setIcon(*myicons->getImgSix());
-        break;
-    }
-    case 7: {
-        newBtns[x][y]->setIcon(*myicons->getImgSeven());
-        break;
-    }
-    case 8: {
-        newBtns[x][y]->setIcon(*myicons->getImgEight());
-        break;
-    }
+        case 1: {
+            newBtns[x][y]->setIcon(*myicons->getImgOne());
+            break;
+        }
+        case 2: {
+            newBtns[x][y]->setIcon(*myicons->getImgTwo());
+            break;
+        }
+        case 3: {
+            newBtns[x][y]->setIcon(*myicons->getImgThree());
+            break;
+        }
+        case 4: {
+            newBtns[x][y]->setIcon(*myicons->getImgFour());
+            break;
+        }
+        case 5: {
+            newBtns[x][y]->setIcon(*myicons->getImgFive());
+            break;
+        }
+        case 6: {
+            newBtns[x][y]->setIcon(*myicons->getImgSix());
+            break;
+        }
+        case 7: {
+            newBtns[x][y]->setIcon(*myicons->getImgSeven());
+            break;
+        }
+        case 8: {
+            newBtns[x][y]->setIcon(*myicons->getImgEight());
+            break;
+        }
     }
 }
 
@@ -84,7 +84,13 @@ void MainWindow::start() {
     QHBoxLayout* labelLay =new QHBoxLayout();
     bombsLabel = new QLabel(QString::number(nrBomb));
     timeLabel = new QLabel("");
+    QLabel* minetxt = new QLabel("mines left: ");
+
+    minetxt->setAlignment(Qt::AlignLeft);
     timeLabel->setAlignment(Qt::AlignRight);
+
+    labelLay->addWidget(minetxt);
+    labelLay->addWidget(bombsLabel);
     labelLay->addWidget(timeLabel);
 
     layout->addLayout(labelLay);
@@ -105,8 +111,15 @@ void MainWindow::start() {
             newBtns[i][j] = new RightClickBtn();
             newBtns[i][j]->setMinimumSize(40, 40);
             newBtns[i][j]->setIconSize(QSize(40, 40));
-            connect(newBtns[i][j], &RightClickBtn::clicked, [this, i, j]{actionBtn(i, j);});
-            connect(newBtns[i][j], &RightClickBtn::rightClick, [this, i, j]{onRightClick(i, j);});
+
+            connect(newBtns[i][j], &RightClickBtn::clicked, [this, i, j]{
+                actionBtn(i, j);
+            });
+
+            connect(newBtns[i][j], &RightClickBtn::rightClick, [this, i, j]{
+                onRightClick(i, j);
+            });
+
             btnLay->addWidget(newBtns[i][j], i, j);
         }
     }
@@ -197,15 +210,16 @@ void MainWindow::clear(int x, int y) {
     if (fields[x][y].value == 0 && !fields[x][y].visited)
     {
         newBtns[x][y]->setStyleSheet("border: none;");
+
         fields[x][y].visited = true;
-        if ((x-1) > -1)
-            clear(x-1, y);
-        if ((y-1) > -1)
-            clear(x, y-1);
-        if ((x+1) < xDim)
-            clear(x+1, y);
-        if ((y+1) < yDim)
-            clear(x, y+1);
+
+        if ((x-1) > -1) clear(x-1, y);
+
+        if ((y-1) > -1) clear(x, y-1);
+
+        if ((x+1) < xDim) clear(x+1, y);
+
+        if ((y+1) < yDim) clear(x, y+1);
     }
     else
     {
@@ -262,7 +276,18 @@ void MainWindow::actionBtn(int x, int y){
 }
 
 void MainWindow::refreshTime() {
-    timeLabel->setText(QString::number(elapsedt->elapsed()/100) + " sec");
+    qint64 totalNumberOfSeconds = elapsedt->elapsed() / 1000;
+
+    int seconds = totalNumberOfSeconds % 60;
+    int minutes = (totalNumberOfSeconds / 60) % 60;
+    int hours = (totalNumberOfSeconds / 60 / 60);
+
+    QString timeString = QString("%1:%2:%3")
+      .arg(hours, 2, 10, QChar('0'))
+      .arg(minutes, 2, 10, QChar('0'))
+      .arg(seconds, 2, 10, QChar('0'));
+
+    timeLabel->setText(timeString);
 }
 
 void MainWindow::onRightClick(int x, int y) {
@@ -331,11 +356,11 @@ void MainWindow::restart() {
         {
             newBtns[i][j]->setText("");
             fields[i][j].visited = false;
-            newBtns[i][j]->setIcon(QIcon()); // basicly remove the icon
+            newBtns[i][j]->setIcon(QIcon()); // basically remove the icon
             newBtns[i][j]->setStyleSheet("border-bottom: 2px solid #7B7B7B; \
                                          border-left: 2px solid #ffffff;    \
-                    border-top: 2px solid #ffffff;     \
-            border-right: 2px solid #7B7B7B;");
+                                         border-top: 2px solid #ffffff;     \
+                                         border-right: 2px solid #7B7B7B;");
         }
     }
 
