@@ -12,15 +12,18 @@ SOURCES += \
     icons.cpp \
     main.cpp \
     mainwindow.cpp \
-    rightclickbtn.cpp
+    rightclickbtn.cpp \
+    welcomewindow.cpp
 
 HEADERS += \
     icons.h \
     mainwindow.h \
-    rightclickbtn.h
+    rightclickbtn.h \
+    welcomewindow.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    welcomewindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

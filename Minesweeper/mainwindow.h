@@ -48,7 +48,7 @@ private:
 
     QGridLayout *btnLay;
     RightClickBtn *** newBtns;
-    icons *icons;
+    icons *myicons;
     Field **fields;
 
     void start();
@@ -56,13 +56,13 @@ private:
     void generate();
     void count(int, int);
     void increment(int, int);
-    void show(int, int);
+    void showAll(int, int);
     void clear(int, int);
     int btnsLeft();
     void fill();
     void print();
     void restart();
-    void connect();
+    void connectAll();
     void setIcons(int, int);
 private slots:
     void actionBtn(int,int);

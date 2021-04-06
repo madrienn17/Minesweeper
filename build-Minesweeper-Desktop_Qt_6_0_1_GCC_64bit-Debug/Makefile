@@ -52,13 +52,23 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../Minesweeper/main.cpp \
-		../Minesweeper/mainwindow.cpp qrc_Resources.cpp \
-		moc_mainwindow.cpp
-OBJECTS       = main.o \
+SOURCES       = ../Minesweeper/icons.cpp \
+		../Minesweeper/main.cpp \
+		../Minesweeper/mainwindow.cpp \
+		../Minesweeper/rightclickbtn.cpp \
+		../Minesweeper/welcomewindow.cpp qrc_Resources.cpp \
+		moc_mainwindow.cpp \
+		moc_rightclickbtn.cpp \
+		moc_welcomewindow.cpp
+OBJECTS       = icons.o \
+		main.o \
 		mainwindow.o \
+		rightclickbtn.o \
+		welcomewindow.o \
 		qrc_Resources.o \
-		moc_mainwindow.o
+		moc_mainwindow.o \
+		moc_rightclickbtn.o \
+		moc_welcomewindow.o
 DIST          = /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/common/unix.conf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/common/linux.conf \
@@ -146,7 +156,6 @@ DIST          = /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/qt_config.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/spec_post.prf \
-		../Minesweeper/.qmake.stash \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/toolchain.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -167,8 +176,14 @@ DIST          = /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/exceptions.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/yacc.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/lex.prf \
-		../Minesweeper/Minesweeper.pro ../Minesweeper/mainwindow.h ../Minesweeper/main.cpp \
-		../Minesweeper/mainwindow.cpp
+		../Minesweeper/Minesweeper.pro ../Minesweeper/icons.h \
+		../Minesweeper/mainwindow.h \
+		../Minesweeper/rightclickbtn.h \
+		../Minesweeper/welcomewindow.h ../Minesweeper/icons.cpp \
+		../Minesweeper/main.cpp \
+		../Minesweeper/mainwindow.cpp \
+		../Minesweeper/rightclickbtn.cpp \
+		../Minesweeper/welcomewindow.cpp
 QMAKE_TARGET  = Minesweeper
 DESTDIR       = 
 TARGET        = Minesweeper
@@ -177,7 +192,7 @@ TARGET        = Minesweeper
 first: all
 ####### Build rules
 
-Minesweeper: ui_mainwindow.h $(OBJECTS)  
+Minesweeper: ui_mainwindow.h ui_welcomewindow.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../Minesweeper/Minesweeper.pro /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/linux-g++/qmake.conf /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/spec_pre.prf \
@@ -267,7 +282,6 @@ Makefile: ../Minesweeper/Minesweeper.pro /home/madrienn17/Qt/6.0.1/gcc_64/mkspec
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/qt_config.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/toolchain.prf \
 		/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -381,7 +395,6 @@ Makefile: ../Minesweeper/Minesweeper.pro /home/madrienn17/Qt/6.0.1/gcc_64/mkspec
 /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/qt_config.prf:
 /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/linux-g++/qmake.conf:
 /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/exclusive_builds.prf:
 /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/toolchain.prf:
 /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/default_pre.prf:
@@ -423,9 +436,9 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../Minesweeper/Resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Minesweeper/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Minesweeper/main.cpp ../Minesweeper/mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Minesweeper/mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../Minesweeper/icons.h ../Minesweeper/mainwindow.h ../Minesweeper/rightclickbtn.h ../Minesweeper/welcomewindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Minesweeper/icons.cpp ../Minesweeper/main.cpp ../Minesweeper/mainwindow.cpp ../Minesweeper/rightclickbtn.cpp ../Minesweeper/welcomewindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Minesweeper/mainwindow.ui ../Minesweeper/welcomewindow.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -473,9 +486,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++1z -Wall -Wextra -dM -E -o moc_predefs.h /home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_rightclickbtn.cpp moc_welcomewindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_rightclickbtn.cpp moc_welcomewindow.cpp
 moc_mainwindow.cpp: ../Minesweeper/mainwindow.h \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QMainWindow \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qmainwindow.h \
@@ -607,32 +620,39 @@ moc_mainwindow.cpp: ../Minesweeper/mainwindow.h \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/QTransform \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qicon.h \
+		../Minesweeper/rightclickbtn.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QWidget \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QPushButton \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/QMouseEvent \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QDebug \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QGridLayout \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qlayout.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QMessageBox \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qdialog.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QLabel \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qlabel.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qframe.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpicture.h \
+		../Minesweeper/icons.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/QIcon \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QVBoxLayout \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QHBoxLayout \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QElapsedTimer \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qelapsedtimer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QTimer \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtimer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbasictimer.h \
 		moc_predefs.h \
 		/home/madrienn17/Qt/6.0.1/gcc_64/bin/moc
 	/home/madrienn17/Qt/6.0.1/gcc_64/bin/moc $(DEFINES) --include /home/madrienn17/Desktop/EGYETEMII/II.Felev/Qt/Minesweeper/build-Minesweeper-Desktop_Qt_6_0_1_GCC_64bit-Debug/moc_predefs.h -I/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/linux-g++ -I/home/madrienn17/Desktop/EGYETEMII/II.Felev/Qt/Minesweeper/Minesweeper -I/home/madrienn17/Qt/6.0.1/gcc_64/include -I/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets -I/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui -I/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Minesweeper/mainwindow.h -o moc_mainwindow.cpp
 
-compiler_moc_objc_header_make_all:
-compiler_moc_objc_header_clean:
-compiler_moc_source_make_all:
-compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h
-compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h
-ui_mainwindow.h: ../Minesweeper/mainwindow.ui \
-		/home/madrienn17/Qt/6.0.1/gcc_64/bin/uic
-	/home/madrienn17/Qt/6.0.1/gcc_64/bin/uic ../Minesweeper/mainwindow.ui -o ui_mainwindow.h
-
-compiler_yacc_decl_make_all:
-compiler_yacc_decl_clean:
-compiler_yacc_impl_make_all:
-compiler_yacc_impl_clean:
-compiler_lex_make_all:
-compiler_lex_clean:
-compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
-
-####### Compile
-
-main.o: ../Minesweeper/main.cpp ../Minesweeper/mainwindow.h \
+moc_rightclickbtn.cpp: ../Minesweeper/rightclickbtn.h \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QMainWindow \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qmainwindow.h \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -763,6 +783,394 @@ main.o: ../Minesweeper/main.cpp ../Minesweeper/mainwindow.h \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/QTransform \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qicon.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QWidget \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QPushButton \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/QMouseEvent \
+		moc_predefs.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/bin/moc
+	/home/madrienn17/Qt/6.0.1/gcc_64/bin/moc $(DEFINES) --include /home/madrienn17/Desktop/EGYETEMII/II.Felev/Qt/Minesweeper/build-Minesweeper-Desktop_Qt_6_0_1_GCC_64bit-Debug/moc_predefs.h -I/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/linux-g++ -I/home/madrienn17/Desktop/EGYETEMII/II.Felev/Qt/Minesweeper/Minesweeper -I/home/madrienn17/Qt/6.0.1/gcc_64/include -I/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets -I/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui -I/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Minesweeper/rightclickbtn.h -o moc_rightclickbtn.cpp
+
+moc_welcomewindow.cpp: ../Minesweeper/welcomewindow.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QObject \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobject.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qnamespace.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qglobal.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qconfig.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtcore-config.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsysinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qlogging.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qflags.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmutex.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qnumeric.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qversiontagging.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtmetamacros.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstring.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qchar.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearray.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qrefcount.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qarraydata.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpair.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qarraydatapointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qarraydataops.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontainertools_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearrayalgorithms.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearrayview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringliteral.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qanystringview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qutf8stringview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringtokenizer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qlist.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiterator.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringlist.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qalgorithms.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcoreevent.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmetatype.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcompare.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qdatastream.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiodevicebase.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiterable.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmetacontainer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontainerinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtaggedpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmath.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobject_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qproperty.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qshareddata.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpropertyprivate.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QWidget \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qwidget.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qtguiglobal.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qtgui-config.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmargins.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qrect.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsize.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpoint.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpalette.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qcolor.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qrgb.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qrgba64.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qbrush.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qimage.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpixelformat.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qtransform.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpolygon.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qregion.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qline.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpixmap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qfont.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qfontinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qcursor.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qbitmap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qkeysequence.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qevent.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiodevice.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qurl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qvariant.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qshareddata_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qhash.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qdebug.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtextstream.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringconverter.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qset.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qeventpoint.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qvector2d.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qvectornd.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpointingdevice.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qinputdevice.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qscreen.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QList \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QRect \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QSize \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QSizeF \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/QTransform \
+		moc_predefs.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/bin/moc
+	/home/madrienn17/Qt/6.0.1/gcc_64/bin/moc $(DEFINES) --include /home/madrienn17/Desktop/EGYETEMII/II.Felev/Qt/Minesweeper/build-Minesweeper-Desktop_Qt_6_0_1_GCC_64bit-Debug/moc_predefs.h -I/home/madrienn17/Qt/6.0.1/gcc_64/mkspecs/linux-g++ -I/home/madrienn17/Desktop/EGYETEMII/II.Felev/Qt/Minesweeper/Minesweeper -I/home/madrienn17/Qt/6.0.1/gcc_64/include -I/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets -I/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui -I/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Minesweeper/welcomewindow.h -o moc_welcomewindow.cpp
+
+compiler_moc_objc_header_make_all:
+compiler_moc_objc_header_clean:
+compiler_moc_source_make_all:
+compiler_moc_source_clean:
+compiler_uic_make_all: ui_mainwindow.h ui_welcomewindow.h
+compiler_uic_clean:
+	-$(DEL_FILE) ui_mainwindow.h ui_welcomewindow.h
+ui_mainwindow.h: ../Minesweeper/mainwindow.ui \
+		/home/madrienn17/Qt/6.0.1/gcc_64/bin/uic
+	/home/madrienn17/Qt/6.0.1/gcc_64/bin/uic ../Minesweeper/mainwindow.ui -o ui_mainwindow.h
+
+ui_welcomewindow.h: ../Minesweeper/welcomewindow.ui \
+		/home/madrienn17/Qt/6.0.1/gcc_64/bin/uic
+	/home/madrienn17/Qt/6.0.1/gcc_64/bin/uic ../Minesweeper/welcomewindow.ui -o ui_welcomewindow.h
+
+compiler_yacc_decl_make_all:
+compiler_yacc_decl_clean:
+compiler_yacc_impl_make_all:
+compiler_yacc_impl_clean:
+compiler_lex_make_all:
+compiler_lex_clean:
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
+
+####### Compile
+
+icons.o: ../Minesweeper/icons.cpp ../Minesweeper/icons.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/QIcon \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qicon.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qtguiglobal.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qglobal.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qconfig.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtcore-config.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsysinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qlogging.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qflags.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmutex.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qnumeric.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qversiontagging.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qtgui-config.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsize.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qnamespace.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtmetamacros.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstring.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qchar.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearray.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qrefcount.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qarraydata.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpair.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qarraydatapointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qarraydataops.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontainertools_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearrayalgorithms.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearrayview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringliteral.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qanystringview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qutf8stringview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringtokenizer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmargins.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qlist.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiterator.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringlist.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qalgorithms.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpixmap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qrect.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpoint.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qcolor.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qrgb.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qrgba64.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qshareddata.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobject.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcoreevent.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmetatype.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcompare.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qdatastream.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiodevicebase.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiterable.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmetacontainer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontainerinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtaggedpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmath.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobject_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qproperty.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpropertyprivate.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qimage.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpixelformat.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qtransform.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpolygon.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qregion.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qline.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o icons.o ../Minesweeper/icons.cpp
+
+main.o: ../Minesweeper/main.cpp ../Minesweeper/welcomewindow.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QObject \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobject.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qnamespace.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qglobal.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qconfig.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtcore-config.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsysinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qlogging.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qflags.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmutex.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qnumeric.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qversiontagging.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtmetamacros.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstring.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qchar.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearray.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qrefcount.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qarraydata.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpair.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qarraydatapointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qarraydataops.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontainertools_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearrayalgorithms.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearrayview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringliteral.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qanystringview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qutf8stringview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringtokenizer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qlist.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiterator.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringlist.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qalgorithms.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcoreevent.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmetatype.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcompare.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qdatastream.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiodevicebase.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiterable.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmetacontainer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontainerinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtaggedpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmath.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobject_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qproperty.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qshareddata.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpropertyprivate.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QWidget \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qwidget.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qtguiglobal.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qtgui-config.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmargins.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qrect.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsize.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpoint.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpalette.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qcolor.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qrgb.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qrgba64.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qbrush.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qimage.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpixelformat.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qtransform.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpolygon.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qregion.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qline.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpixmap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qfont.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qfontinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qcursor.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qbitmap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qkeysequence.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qevent.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiodevice.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qurl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qvariant.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qshareddata_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qhash.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qdebug.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtextstream.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringconverter.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qset.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qeventpoint.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qvector2d.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qvectornd.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpointingdevice.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qinputdevice.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qscreen.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QList \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QRect \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QSize \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QSizeF \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/QTransform \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QApplication \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qapplication.h \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -903,29 +1311,350 @@ mainwindow.o: ../Minesweeper/mainwindow.cpp ../Minesweeper/mainwindow.h \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/QTransform \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qicon.h \
+		../Minesweeper/rightclickbtn.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QWidget \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QPushButton \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/QMouseEvent \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QDebug \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QGridLayout \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qlayout.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QMessageBox \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qdialog.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QLabel \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qlabel.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qframe.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpicture.h \
+		../Minesweeper/icons.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/QIcon \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QVBoxLayout \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QHBoxLayout \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QElapsedTimer \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qelapsedtimer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QTimer \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtimer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbasictimer.h \
 		ui_mainwindow.h \
-		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QVariant \
-		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QApplication \
-		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qapplication.h \
-		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcoreapplication.h \
-		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qeventloop.h \
-		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qguiapplication.h \
-		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qinputmethod.h \
-		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qlocale.h \
-		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QMenuBar \
-		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qmenubar.h \
-		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qmenu.h \
-		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qaction.h \
-		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QStatusBar \
-		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qstatusbar.h \
-		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QWidget
+		../Minesweeper/welcomewindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Minesweeper/mainwindow.cpp
+
+rightclickbtn.o: ../Minesweeper/rightclickbtn.cpp ../Minesweeper/rightclickbtn.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QMainWindow \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qmainwindow.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qtguiglobal.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qglobal.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qconfig.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtcore-config.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsysinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qlogging.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qflags.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmutex.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qnumeric.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qversiontagging.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qtgui-config.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qwidget.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qnamespace.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtmetamacros.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobject.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstring.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qchar.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearray.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qrefcount.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qarraydata.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpair.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qarraydatapointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qarraydataops.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontainertools_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearrayalgorithms.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearrayview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringliteral.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qanystringview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qutf8stringview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringtokenizer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qlist.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiterator.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringlist.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qalgorithms.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcoreevent.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmetatype.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcompare.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qdatastream.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiodevicebase.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiterable.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmetacontainer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontainerinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtaggedpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmath.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobject_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qproperty.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qshareddata.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpropertyprivate.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmargins.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qrect.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsize.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpoint.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpalette.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qcolor.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qrgb.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qrgba64.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qbrush.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qimage.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpixelformat.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qtransform.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpolygon.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qregion.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qline.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpixmap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qfont.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qfontinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qcursor.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qbitmap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qkeysequence.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qevent.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiodevice.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qurl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qvariant.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qshareddata_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qhash.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qdebug.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtextstream.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringconverter.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qset.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qeventpoint.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qvector2d.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qvectornd.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpointingdevice.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qinputdevice.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qscreen.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QList \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QObject \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QRect \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QSize \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QSizeF \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/QTransform \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qicon.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QWidget \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QPushButton \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/QMouseEvent
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rightclickbtn.o ../Minesweeper/rightclickbtn.cpp
+
+welcomewindow.o: ../Minesweeper/welcomewindow.cpp ../Minesweeper/welcomewindow.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QObject \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobject.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qnamespace.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qglobal.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qconfig.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtcore-config.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsysinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qlogging.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qflags.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmutex.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qnumeric.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qversiontagging.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtmetamacros.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstring.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qchar.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearray.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qrefcount.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qarraydata.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpair.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qarraydatapointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qarraydataops.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontainertools_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearrayalgorithms.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearrayview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringliteral.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qanystringview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qutf8stringview.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringtokenizer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qlist.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiterator.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringlist.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qalgorithms.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcoreevent.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmetatype.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcompare.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qdatastream.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiodevicebase.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiterable.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmetacontainer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontainerinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtaggedpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmath.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qobject_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qproperty.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qshareddata.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpropertyprivate.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QWidget \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qwidget.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qtguiglobal.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qtgui-config.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmargins.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qrect.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsize.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpoint.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpalette.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qcolor.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qrgb.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qrgba64.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qbrush.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qimage.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpixelformat.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qtransform.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpolygon.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qregion.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qline.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpixmap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qfont.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qfontinfo.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qcursor.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qbitmap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qkeysequence.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qevent.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qiodevice.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qpointer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qurl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qvariant.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qmap.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qshareddata_impl.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qhash.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qdebug.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtextstream.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qstringconverter.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qset.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qeventpoint.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qvector2d.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qvectornd.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpointingdevice.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qinputdevice.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qscreen.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QList \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QRect \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QSize \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QSizeF \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/QTransform \
+		../Minesweeper/mainwindow.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QMainWindow \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qmainwindow.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qicon.h \
+		../Minesweeper/rightclickbtn.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QPushButton \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/QMouseEvent \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QDebug \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QGridLayout \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qlayout.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QMessageBox \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qdialog.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QLabel \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qlabel.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/qframe.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/qpicture.h \
+		../Minesweeper/icons.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtGui/QIcon \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QVBoxLayout \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtWidgets/QHBoxLayout \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QElapsedTimer \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qelapsedtimer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/QTimer \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qtimer.h \
+		/home/madrienn17/Qt/6.0.1/gcc_64/include/QtCore/qbasictimer.h \
+		ui_welcomewindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o welcomewindow.o ../Minesweeper/welcomewindow.cpp
 
 qrc_Resources.o: qrc_Resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_Resources.o qrc_Resources.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+
+moc_rightclickbtn.o: moc_rightclickbtn.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_rightclickbtn.o moc_rightclickbtn.cpp
+
+moc_welcomewindow.o: moc_welcomewindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_welcomewindow.o moc_welcomewindow.cpp
 
 ####### Install
 
