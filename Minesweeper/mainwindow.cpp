@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "welcomewindow.h"
 
+//constructor with 2 params x and y dimmensions
 MainWindow::MainWindow(int xDim, int yDim)
     : ui(new Ui::MainWindow),
       xDim(xDim), yDim(yDim)
@@ -11,6 +12,7 @@ MainWindow::MainWindow(int xDim, int yDim)
     connectAll();
 }
 
+//constructor with 3 params x and y dimmensions, and number of mines
 MainWindow::MainWindow(int xDim, int yDim, int nrBomb)
     : ui(new Ui::MainWindow),
       xDim(xDim), yDim(yDim), nrBomb(nrBomb)
@@ -25,16 +27,18 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+//connectiong main signals and slots
 void MainWindow::connectAll() {
     connect(this, SIGNAL(win()),this, SLOT(winmsg()));
     connect(this, SIGNAL (lose()), this, SLOT(losemsg()));
 
-    //handling the menu items
+    //handling the menu items with lambdas
     connect(ui->actionNew_Game, &QAction::triggered, [this]{newGame();});
     connect(ui->actionRestart, &QAction::triggered, [this]{restart();});
     connect(ui->actionExit, &QAction::triggered, []{QApplication::quit();});
 }
 
+//setting up the correct numbers on the fields, based on field struct-s value
 void MainWindow::setIcons(int x, int y) {
     switch (fields[x][y].value) {
         case 1: {
@@ -72,10 +76,12 @@ void MainWindow::setIcons(int x, int y) {
     }
 }
 
+//this is the main function, which does all the magic
 void MainWindow::start() {
     myicons = new icons;
     timer = new QTimer();
     elapsedt = new QElapsedTimer();
+    //starting a timer
     connect(timer, SIGNAL(timeout()), this, SLOT(refreshTime()));
 
     QVBoxLayout* layout = new QVBoxLayout();
@@ -96,14 +102,17 @@ void MainWindow::start() {
     layout->addLayout(labelLay);
     layout->addLayout(btnLay);
 
+    //generating the buttons based on dimmensions selected
     newBtns = new RightClickBtn**[xDim];
     fields = new Field*[xDim];
     for (int i=0; i<xDim; ++i) {
         newBtns[i] = new RightClickBtn*[yDim];
         fields[i] = new Field[yDim];
     }
-    fill();
+    fill(); //fill the board with mines
     generate();
+
+    //setting up right and left click handlers and sizes for every button
     for (int i = 0; i < xDim; ++i)
     {
         for (int j = 0; j < yDim; ++j)
@@ -123,9 +132,9 @@ void MainWindow::start() {
             btnLay->addWidget(newBtns[i][j], i, j);
         }
     }
-    ui->centralwidget->setLayout(layout);
-    timer->start();
-    elapsedt->start();
+    ui->centralwidget->setLayout(layout); //setting up main layout
+    timer->start(); //starting the timer
+    elapsedt->start(); //starting elapsed timer too
 }
 
 void MainWindow::newGame() {
@@ -134,6 +143,7 @@ void MainWindow::newGame() {
     w->show();
 }
 
+//generating mines in an ammount selected on random places
 void MainWindow::generate() {
     srand(time(NULL));
     int x, y;
@@ -151,12 +161,14 @@ void MainWindow::generate() {
     }
 }
 
+//setting the value of the field struct
 void MainWindow::increment(int a, int b) {
     if(fields[a][b].value != -1) {
         ++fields[a][b].value;
     }
 }
 
+//calculating the field's eventual value based on bombs nearby
 void MainWindow::count(int i, int j) {
     if (i-1 >= 0 && j-1 >= 0) {
         increment(i-1, j-1);
@@ -184,7 +196,7 @@ void MainWindow::count(int i, int j) {
     }
 }
 
-
+// showing all the mines when clicking on one of them
 void MainWindow::showAll(int x, int y) {
     for (int i = 0; i < xDim; ++i)
     {
@@ -206,6 +218,7 @@ void MainWindow::showAll(int x, int y) {
     }
 }
 
+//clearing the spaces where there is nothing
 void MainWindow::clear(int x, int y) {
     if (fields[x][y].value == 0 && !fields[x][y].visited)
     {
@@ -232,7 +245,7 @@ void MainWindow::clear(int x, int y) {
     }
 }
 
-
+//filling up the matrix of fields
 void MainWindow::fill() {
     for (int i = 0; i < xDim; ++i) {
         for (int j = 0; j < yDim; ++j) {
@@ -243,6 +256,7 @@ void MainWindow::fill() {
     }
 }
 
+//checking out winning and losing based on flags
 void MainWindow::actionBtn(int x, int y){
     if (!fields[x][y].flagged) {
         auto isMine = fields[x][y].value;
@@ -275,6 +289,7 @@ void MainWindow::actionBtn(int x, int y){
     }
 }
 
+// calculating the elapsed time which is shown on the timelabel
 void MainWindow::refreshTime() {
     qint64 totalNumberOfSeconds = elapsedt->elapsed() / 1000;
 
@@ -290,6 +305,7 @@ void MainWindow::refreshTime() {
     timeLabel->setText(timeString);
 }
 
+//handling right clicks -> flags
 void MainWindow::onRightClick(int x, int y) {
     if (!fields[x][y].visited) {
         int bombsLeft = bombsLabel->text().toInt();
@@ -316,6 +332,7 @@ void MainWindow::onRightClick(int x, int y) {
     }
 }
 
+//popping up a win message
 void MainWindow::winmsg() {
     timer->stop();
     QMessageBox messageBox;
@@ -330,6 +347,7 @@ void MainWindow::winmsg() {
     }
 }
 
+//popping up a lose message
 void MainWindow::losemsg() {
     QMessageBox messageBox;
     QMessageBox::StandardButton reply;
@@ -343,7 +361,7 @@ void MainWindow::losemsg() {
     }
 }
 
-
+//restarting the game on the menu item restart selected
 void MainWindow::restart() {
     fields = new Field*[xDim];
     for (int i = 0; i < xDim; ++i) {
@@ -356,7 +374,7 @@ void MainWindow::restart() {
         {
             newBtns[i][j]->setText("");
             fields[i][j].visited = false;
-            newBtns[i][j]->setIcon(QIcon()); // basically remove the icon
+            newBtns[i][j]->setIcon(QIcon()); // remove the icon
             newBtns[i][j]->setStyleSheet("border-bottom: 2px solid #7B7B7B; \
                                          border-left: 2px solid #ffffff;    \
                                          border-top: 2px solid #ffffff;     \
@@ -370,6 +388,7 @@ void MainWindow::restart() {
     bombsLabel->setText(QString::number(nrBomb));
 }
 
+//calculating the number of unclicked fields left
 int MainWindow::btnsLeft() {
     int temp = 0;
     for (int i = 0; i < xDim; ++i) {

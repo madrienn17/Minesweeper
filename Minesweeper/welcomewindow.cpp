@@ -2,6 +2,11 @@
 #include "mainwindow.h"
 #include "ui_welcomewindow.h"
 
+/*
+* Starter window of the app, where you can choose your gameboard size preferences
+* Two buttons: Exit and Start
+*/
+
 WelcomeWindow::WelcomeWindow(QWidget *parent)
     : QWidget(parent), ui(new Ui::WelcomeWindow)
 {

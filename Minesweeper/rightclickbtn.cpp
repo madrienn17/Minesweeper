@@ -1,5 +1,9 @@
 #include "rightclickbtn.h"
 
+/*
+* Helper class to handle right clicks, needed for flagging in the game
+*/
+
 RightClickBtn::RightClickBtn(QWidget *parent)
     :  QPushButton(parent) {}
 
